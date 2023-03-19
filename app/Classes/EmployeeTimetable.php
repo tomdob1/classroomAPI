@@ -5,6 +5,7 @@ namespace App\Classes;
 class EmployeeTimetable
 {
     private string $employeeId;
+    private string $employeeName;
     private array $mondayTimetable;
     private array $tuesdayTimetable;
     private array $wednesdayTimetable;
@@ -13,6 +14,7 @@ class EmployeeTimetable
 
     public function __construct(
         string $employeeId,
+        string $employeeName,
         array $mondayTimetable,
         array $tuesdayTimetable,
         array $wednesdayTimetable,
@@ -20,6 +22,7 @@ class EmployeeTimetable
         array $fridayTimetable,
     ) {
         $this->employeeId = $employeeId;
+        $this->employeeName = $employeeName;
         $this->mondayTimetable = $mondayTimetable;
         $this->tuesdayTimetable = $tuesdayTimetable;
         $this->wednesdayTimetable = $wednesdayTimetable;
@@ -27,14 +30,14 @@ class EmployeeTimetable
         $this->fridayTimetable = $fridayTimetable;
     }
 
-    public function getEmployeeId(): ?string
-    {
-        return $this->employeeId;
-    }
-
     public function setEmployeeId(string $employeeId): void
     {
         $this->employeeId = $employeeId;
+    }
+
+    public function setEmployeeName(string $employeeName): void
+    {
+        $this->employeeName = $employeeName;
     }
 
     public function setMondayTimetable(array $mondayTimetable): void
@@ -60,6 +63,16 @@ class EmployeeTimetable
     public function setFridayTimetable(array $fridayTimetable): void
     {
         $this->fridayTimetable = $fridayTimetable;
+    }
+
+    public function getEmployeeName(): string
+    {
+        return $this->employeeName;
+    }
+
+    public function getEmployeeId(): ?string
+    {
+        return $this->employeeId;
     }
 
     public function getMondayTimetable(): array

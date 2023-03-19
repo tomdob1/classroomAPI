@@ -24,7 +24,7 @@ class EmployeeController extends Controller
      */
     public function __construct()
     {
-        $this->school = Client::getWondeClient()->school(env('WONDE_SCHOOL_ID'));
+        $this->school = Client::getWondeClient()->school('A1930499544');
     }
 
     public function getEmployees(): Factory|View|Application

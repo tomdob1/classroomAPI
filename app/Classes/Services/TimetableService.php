@@ -33,8 +33,9 @@ class TimetableService
         $employee = $school->employees->get($employeeId, ['classes']);
         $classes = $employee->classes->data;
         $timetableArray = $this->mapLessonsToCorrectWeekdays($school, $classes);
+        $employeeName = $employee->forename . ' ' . $employee->surname;
 
-        return $this->createAndStoreEmployeeTimetable($timetableArray, $employeeId);
+        return $this->createAndStoreEmployeeTimetable($timetableArray, $employeeId, $employeeName);
     }
 
     /**
@@ -79,18 +80,11 @@ class TimetableService
         return !in_array($dayOfTheWeek, $classDay);
     }
 
-    private function createAndStoreEmployeeTimetable(array $timetable, string $employeeId): EmployeeTimetable
+    private function createAndStoreEmployeeTimetable(array $timetable, string $employeeId, string $employeeName): EmployeeTimetable
     {
-        $employeeTimetable = $this->employeeTimetableFactory->createEmployeeTimetable($timetable, $employeeId);
-        session(['EmployeeTimetable' => [
-                'EmployeeId' => $employeeId,
-                'Monday' => $employeeTimetable->getMondayTimetable(),
-                'Tuesday' => $employeeTimetable->getTuesdayTimetable(),
-                'Wednesday' => $employeeTimetable->getWednesdayTimetable(),
-                'Thursday' => $employeeTimetable->getThursdayTimetable(),
-                'Friday' => $employeeTimetable->getFridayTimetable(),
-            ]
-        ]);
+        $employeeTimetable = $this->employeeTimetableFactory->createEmployeeTimetable($timetable, $employeeId,$employeeName);
+
+        session(['EmployeeTimetable' => $employeeTimetable]);
 
         return $employeeTimetable;
     }

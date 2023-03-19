@@ -24,7 +24,7 @@ class TimetableController
     public function __construct(
         TimetableService $timetableService,
     ) {
-        $this->school = Client::getWondeClient()->school(env('WONDE_SCHOOL_ID'));
+        $this->school = Client::getWondeClient()->school('A1930499544');
         $this->timetableService = $timetableService;
     }
 
@@ -34,17 +34,18 @@ class TimetableController
     public function getTimetableMonday(string $employeeId)
     {
         $employeeTimetable = session('EmployeeTimetable');
-        if ($employeeTimetable['EmployeeId'] === $employeeId) {
-            $monday = $employeeTimetable[self::TIMETABLE_MONDAY];
-        } else {
+        if ($employeeTimetable === null || $employeeTimetable->getEmployeeId() !== $employeeId) {
             $employeeTimetable = $this->timetableService->generateEmployeeTimetable($this->school, $employeeId);
-            $monday = $employeeTimetable->getTuesdayTimetable();
         }
+
+        $monday = $employeeTimetable->getMondayTimetable();
+        $employeeName = $employeeTimetable->getEmployeeName();
 
         return view('timetable', [
             'day' => self::TIMETABLE_MONDAY,
             'timetable' => $monday,
-            'employeeId' => $employeeId
+            'employeeId' => $employeeId,
+            'employeeName' => $employeeName,
         ]);
     }
 
@@ -54,19 +55,19 @@ class TimetableController
     public function getTimetableTuesday(string $employeeId)
     {
         $employeeTimetable = session('EmployeeTimetable');
-        if ($employeeTimetable['EmployeeId'] === $employeeId) {
-            $tuesday = $employeeTimetable[self::TIMETABLE_TUESDAY];
-        } else {
+        if ($employeeTimetable === null || $employeeTimetable->getEmployeeId() !== $employeeId) {
             $employeeTimetable = $this->timetableService->generateEmployeeTimetable($this->school, $employeeId);
-            $tuesday = $employeeTimetable->getTuesdayTimetable();
         }
+
+        $tuesday = $employeeTimetable->getTuesdayTimetable();
+        $employeeName = $employeeTimetable->getEmployeeName();
 
         return view('timetable', [
             'day' => self::TIMETABLE_TUESDAY,
             'timetable' => $tuesday,
-            'employeeId' => $employeeId
+            'employeeId' => $employeeId,
+            'employeeName' => $employeeName,
         ]);
-
     }
 
     /**
@@ -75,17 +76,18 @@ class TimetableController
     public function getTimetableWednesday(string $employeeId)
     {
         $employeeTimetable = session('EmployeeTimetable');
-        if ($employeeTimetable['EmployeeId'] === $employeeId) {
-            $wednesday = $employeeTimetable[self::TIMETABLE_WEDNESDAY];
-        } else {
+        if ($employeeTimetable === null || $employeeTimetable->getEmployeeId() !== $employeeId) {
             $employeeTimetable = $this->timetableService->generateEmployeeTimetable($this->school, $employeeId);
-            $wednesday = $employeeTimetable->getTuesdayTimetable();
         }
+
+        $wednesday = $employeeTimetable->getWednesdayTimetable();
+        $employeeName = $employeeTimetable->getEmployeeName();
 
         return view('timetable', [
             'day' => self::TIMETABLE_WEDNESDAY,
             'timetable' => $wednesday,
-            'employeeId' => $employeeId
+            'employeeId' => $employeeId,
+            'employeeName' => $employeeName,
         ]);
     }
 
@@ -95,17 +97,18 @@ class TimetableController
     public function getTimetableThursday(string $employeeId)
     {
         $employeeTimetable = session('EmployeeTimetable');
-        if ($employeeTimetable['EmployeeId'] === $employeeId) {
-            $thursday = $employeeTimetable['Thursday'];
-        } else {
+        if ($employeeTimetable === null || $employeeTimetable->getEmployeeId() !== $employeeId) {
             $employeeTimetable = $this->timetableService->generateEmployeeTimetable($this->school, $employeeId);
-            $thursday = $employeeTimetable->getTuesdayTimetable();
         }
+
+        $thursday = $employeeTimetable->getThursdayTimetable();
+        $employeeName = $employeeTimetable->getEmployeeName();
 
         return view('timetable', [
             'day' => self::TIMETABLE_THURSDAY,
             'timetable' => $thursday,
-            'employeeId' => $employeeId
+            'employeeId' => $employeeId,
+            'employeeName' => $employeeName,
         ]);
     }
 
@@ -115,18 +118,18 @@ class TimetableController
     public function getTimetableFriday(string $employeeId)
     {
         $employeeTimetable = session('EmployeeTimetable');
-        if ($employeeTimetable['EmployeeId'] === $employeeId) {
-            $friday = $employeeTimetable['Friday'];
-        } else {
+        if ($employeeTimetable === null || $employeeTimetable->getEmployeeId() !== $employeeId) {
             $employeeTimetable = $this->timetableService->generateEmployeeTimetable($this->school, $employeeId);
-            $friday = $employeeTimetable->getTuesdayTimetable();
         }
+
+        $friday = $employeeTimetable->getFridayTimetable();
+        $employeeName = $employeeTimetable->getEmployeeName();
 
         return view('timetable', [
             'day' => self::TIMETABLE_FRIDAY,
             'timetable' => $friday,
-            'employeeId' => $employeeId
+            'employeeId' => $employeeId,
+            'employeeName' => $employeeName,
         ]);
-
     }
 }

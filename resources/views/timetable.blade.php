@@ -16,9 +16,10 @@
                 <a href="/timetable/{{$employeeId}}/thursday" class="btn @if ($day==='Thursday') btn-primary @else btn-secondary @endif my-2">Thursday</a>
                 <a href="/timetable/{{$employeeId}}/friday" class="btn @if ($day==='Friday') btn-primary @else btn-secondary @endif my-2">Friday</a>
             </p>
-            <h2>{{$day}}</h2>
+            <h2><b>Employee:</b> {{$employeeName}}</h2>
+            <h2><b>Day:</b> {{$day}}</h2>
             @foreach($timetable as $class)
-                <h3 style="margin: 30px 0">Class Name: {{$class->name}}</h3>
+                <h3 style="margin: 30px 0"><b>Class Name:</b> {{$class->name}}</h3>
                 <table class="table" style="width:100%">
                     <thead class="thead-dark">
                     <tr>

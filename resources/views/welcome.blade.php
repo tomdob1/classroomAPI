@@ -40,7 +40,7 @@
 
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">Classroom Application</h1>
+            <h1 class="jumbotron-heading">Classroom API</h1>
             <p class="lead text-muted">Find out your classes for the following week.</p>
 
         </div>

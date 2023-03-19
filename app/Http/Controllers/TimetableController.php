@@ -24,7 +24,7 @@ class TimetableController
     public function __construct(
         TimetableService $timetableService,
     ) {
-        $this->school = Client::getWondeClient()->school('A1930499544');
+        $this->school = Client::getWondeClient()->school(env('WONDE_SCHOOL_ID'));
         $this->timetableService = $timetableService;
     }
 
@@ -56,7 +56,7 @@ class TimetableController
     {
         $employeeTimetable = session('EmployeeTimetable');
         if ($employeeTimetable === null || $employeeTimetable->getEmployeeId() !== $employeeId) {
-            $employeeTimetable = $this->timetableService->generateEmployeeTimetable($this->school, $employeeId);
+            $employeeTimetable = $this->timetableService->generateEmployeeTimetable($this->sFchool, $employeeId);
         }
 
         $tuesday = $employeeTimetable->getTuesdayTimetable();

@@ -2,6 +2,8 @@
 
 ## Classroom API
 
+Developed using PHP & Laravel.
+
 This application uses the Wonde API to obtain school information on:
 
 - Employees
